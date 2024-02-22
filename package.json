@@ -29,6 +29,7 @@
 		"eslint-plugin-svelte": "^2.35.1",
 		"flowbite": "^2.3.0",
 		"flowbite-svelte": "^0.44.23",
+		"lucia": "^3.0.1",
 		"postcss": "^8.4.32",
 		"postcss-load-config": "^5.0.2",
 		"prettier": "^3.1.1",
@@ -44,5 +45,9 @@
 		"vitest": "^1.2.0"
 	},
 	"type": "module",
-	"packageManager": "yarn@4.1.0"
+	"packageManager": "yarn@4.1.0",
+	"dependencies": {
+		"@lucia-auth/adapter-prisma": "^4.0.0",
+		"oslo": "^1.1.2"
+	}
 }
