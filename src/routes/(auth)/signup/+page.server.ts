@@ -3,6 +3,9 @@ import { fail, redirect } from "@sveltejs/kit"
 import { generateId } from "lucia"
 import { Argon2id } from "oslo/password"
 import PrismaClient from "$lib/server/db"
+import { superValidate, message } from 'sveltekit-superforms';
+import { zod } from 'sveltekit-superforms/adapters';
+import { signUpSchema } from '$lib/schemas';
 
 import type { Actions, PageServerLoad } from "./$types";
 
@@ -10,32 +13,30 @@ export const load: PageServerLoad = async (event) => {
 	if (event.locals.user) {
 		return redirect(302, "/");
 	}
-	return {};
+
+  const form = await superValidate(zod(signUpSchema));
+
+	return {
+    form
+  };
 };
 
 export const actions: Actions = {
   default: async (event) => {
-    const formData = await event.request.formData()
-    const email = formData.get("email")
-    const password = formData.get("password")
+    const form = await superValidate(event, zod(signUpSchema));
 
-    if (
-      typeof email !== "string" ||
-      !/^[^@]+@[^@]+\.[^@]+$/.test(email)
-    ) {
+    if (!form.valid) {
       return fail(400, {
-        message: "Invalid email"
-      })
+        form
+      });
     }
 
-    if (
-      typeof password !== "string" ||
-      password.length < 8 ||
-      password.length > 255
-    ) {
-      return fail(400, {
-        message: "Invalid password"
-      })
+    const email = form.data.email
+    const password = form.data.password
+    const confirmPassword = form.data.confirmPassword
+
+    if (password !== confirmPassword) {
+      return message(form, "Passwords do not match")
     }
 
     const userId = generateId(15)
@@ -48,9 +49,7 @@ export const actions: Actions = {
     })
 
     if (userExists) {
-      return fail(400, {
-        message: "User already exists"
-      })
+      return message(form, "User already exists")
     }
 
     await PrismaClient.user.create({
@@ -68,6 +67,6 @@ export const actions: Actions = {
       ...sessionCookie.attributes
     })
 
-    redirect(302, "/")
+    return { form };
   }
 }
