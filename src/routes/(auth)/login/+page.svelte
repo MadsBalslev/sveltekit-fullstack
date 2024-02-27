@@ -47,7 +47,7 @@
     <Form.FieldErrors />
   </Form.Field>
   <Form.Button class="w-full">Login</Form.Button>
-  <div class="footer">
+  <div class="footer flex flex-col md:flex-row">
     <span>Forgot your password? <a href="/auth/forgot-password" class="underline">Reset it</a></span>
     <span>Don't have an account yet? <a href="/signup" class="underline">Register</a></span>
   </div>
@@ -61,6 +61,7 @@
   <Github class="mr-2 h-4 w-4" />
   Continue with GitHub
 </Button>
+
 
 <style>
   .footer {

@@ -56,6 +56,6 @@ export const actions: Actions = {
 		    ...sessionCookie.attributes
 		})
 
-		return { form };
+		return redirect(302, '/');
 	}
 };
