@@ -42,8 +42,19 @@ export const actions: Actions = {
 		if (!existingUser) {
 		    return message(form, 'E-mail or password is incorrect.');
 		}
+		const existingAccount = await PrismaClient.account.findFirst({
+			where: {
+				userId: existingUser.id,
+				providerType: 'EMAIL'
+			}
+		})
 
-		const validPassword = await new Argon2id().verify(existingUser.hashed_password, password)
+		if (!existingAccount) {
+		    return message(form, 'E-mail or password is incorrect.');
+		}
+
+
+		const validPassword = await new Argon2id().verify(existingAccount.providerId, password)
 
 		if (!validPassword) {
 		    return message(form, 'E-mail or password is incorrect.');

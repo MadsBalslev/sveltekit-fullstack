@@ -50,6 +50,7 @@
 	"packageManager": "yarn@4.1.0",
 	"dependencies": {
 		"@lucia-auth/adapter-prisma": "^4.0.0",
+		"arctic": "^1.2.1",
 		"bits-ui": "^0.18.2",
 		"clsx": "^2.1.0",
 		"formsnap": "^0.5.1",

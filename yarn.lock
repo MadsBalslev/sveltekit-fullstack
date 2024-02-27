@@ -1853,6 +1853,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"arctic@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "arctic@npm:1.2.1"
+  dependencies:
+    oslo: "npm:1.0.1"
+  checksum: 10c0/7eaf28e3d091223769d810ac0332093abd88b05f93de1d1a1117795a2d8939b242487965c7d4819f8e63a390d7eae14b53ceb8c56bde3c30a1d1297dfd24574c
+  languageName: node
+  linkType: hard
+
 "arg@npm:^5.0.2":
   version: 5.0.2
   resolution: "arg@npm:5.0.2"
@@ -2227,6 +2236,7 @@ __metadata:
     "@types/eslint": "npm:8.56.0"
     "@typescript-eslint/eslint-plugin": "npm:^6.0.0"
     "@typescript-eslint/parser": "npm:^6.0.0"
+    arctic: "npm:^1.2.1"
     autoprefixer: "npm:^10.4.16"
     bits-ui: "npm:^0.18.2"
     clsx: "npm:^2.1.0"

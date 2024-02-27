@@ -32,6 +32,13 @@
 </Alert.Root>
 {/if}
 <form method="POST" use:enhance>
+  <Form.Field {form} name="name">
+    <Form.Control let:attrs>
+      <Form.Label>Name</Form.Label>
+      <Input {...attrs} bind:value={$formData.name} type="text" />
+    </Form.Control>
+    <Form.FieldErrors />
+  </Form.Field>
   <Form.Field {form} name="email">
     <Form.Control let:attrs>
       <Form.Label>Email</Form.Label>

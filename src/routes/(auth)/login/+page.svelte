@@ -1,7 +1,5 @@
 <script lang="ts">
 	import type { PageData } from "./$types";
-  import { Github } from 'lucide-svelte'
-  import { Button } from "$lib/components/ui/button";
   import * as Form from "$lib/components/ui/form";
   import * as Alert from "$lib/components/ui/alert";
   import AlertCircle from "lucide-svelte/icons/alert-circle";
@@ -13,6 +11,7 @@
     superForm,
   } from "sveltekit-superforms";
   import { zodClient } from "sveltekit-superforms/adapters";
+	import LogInWith from "$lib/components/custom/providers/LogInWith.svelte";
 
   export let data: PageData;
   let lginForm: SuperValidated<Infer<LoginSchema>> = data.form
@@ -57,10 +56,7 @@
   <span>or</span>
 </div>
 
-<Button variant="secondary" class="w-full">
-  <Github class="mr-2 h-4 w-4" />
-  Continue with GitHub
-</Button>
+<LogInWith provider="github" />
 
 
 <style>
