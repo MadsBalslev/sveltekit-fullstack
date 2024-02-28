@@ -42,7 +42,6 @@ export async function GET(event: RequestEvent): Promise<Response> {
 				(account) => account.providerType === 'GITHUB'
 			);
 
-      console.log('existingGitHubAccount:', existingGitHubAccount)
 			if (!existingGitHubAccount) {
 				// Associate the GitHub account with the user
 				await PrismaClient.account.create({
@@ -52,6 +51,17 @@ export async function GET(event: RequestEvent): Promise<Response> {
 						providerType: 'GITHUB'
 					}
 				});
+
+				if (!existingUser.avatarUrl) {
+					await PrismaClient.user.update({
+						where: {
+							id: existingUser.id
+						},
+						data: {
+							avatarUrl: githubUser.avatar_url
+						}
+					});
+				}
 			}
 
 			const session = await lucia.createSession(existingUser.id, {});
@@ -61,7 +71,6 @@ export async function GET(event: RequestEvent): Promise<Response> {
 				...sessionCookie.attributes
 			});
 		} else {
-      console.log('No existing user found')
 			const userId = generateId(15);
 
       await PrismaClient.user.create({
@@ -78,8 +87,6 @@ export async function GET(event: RequestEvent): Promise<Response> {
           }
         }
       });
-
-      console.log('User created')
 
 			const session = await lucia.createSession(userId, {});
 			const sessionCookie = lucia.createSessionCookie(session.id);
