@@ -1,7 +1,7 @@
 import { OAuth2RequestError } from 'arctic';
 import { generateId } from 'lucia';
 import { lucia } from '$lib/server/auth';
-import { github } from '$lib/server/providers';
+import { github, type GitHubUser } from '$lib/server/providers';
 import PrismaClient from '$lib/server/db';
 
 import {error, type RequestEvent } from '@sveltejs/kit';
@@ -111,12 +111,4 @@ export async function GET(event: RequestEvent): Promise<Response> {
 
 		return error(500, 'An error occurred')
 	}
-}
-
-interface GitHubUser {
-	id: number;
-	login: string;
-	email: string;
-	name: string;
-	avatar_url: string;
 }

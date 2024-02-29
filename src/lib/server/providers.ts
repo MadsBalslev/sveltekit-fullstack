@@ -5,3 +5,11 @@ export const github = new GitHub(
   GITHUB_ID,
   GITHUB_SECRET,
 )
+
+export interface GitHubUser {
+	id: number;
+	login: string;
+	email: string;
+	name: string;
+	avatar_url: string;
+}
